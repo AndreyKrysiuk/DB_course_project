@@ -19,7 +19,8 @@ from django.conf.urls import url
 from cursed import views
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('all_news/', views.all_news),
-    path('cluster_els/', views.cluster_els),
+    url(r'^last_week', views.last_week),
+    url(r'^last_month', views.last_month),
     url(r'^cluster/(?P<cluster>\d+)$', views.cluster),
+    url(r'^cluster_stat', views.graph_count),
 ]

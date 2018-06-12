@@ -1,11 +1,10 @@
 import sys
-import cursed.settings
+import cursed.cursed.settings
 import numpy as np
 
 import re
 from Stemmer import Stemmer
-from cursed import NewsModel
-from cursed import ClusterElementModel
+from cursed.cursed import NewsModel
 import matplotlib.pyplot as plt
 from matplotlib import cm
 
@@ -46,8 +45,8 @@ def text_cleaner(text):
 
 
 def save2db(data, clusters):
-    for i in range(0, len(data)):
-        ClusterElementModel.add_cluster(data[i].title, clusters[i])
+    for i in range(0, len(data)-1):
+        NewsModel.update_news_with_cluster(data[i], clusters[i])
 
 
 def main():
@@ -57,12 +56,11 @@ def main():
     print("[i] очистка данных...")
     D = [text_cleaner(t.title + "\n" + t.text) for t in data]
 
-    n_clusters = 2000
+    n_clusters = 200
     print("[i] начинаем разбор")
     text_clstz = Pipeline([
         ('tfidf', TfidfVectorizer()),
-        ('km', KMeans(n_clusters=n_clusters)),
-        # ( 'km', KMeans(n_clusters=n_clusters, init='random', n_init=10, max_iter=300, tol=1e-04, random_state=0) )
+        ( 'km', KMeans(n_clusters=n_clusters, init='random', n_init=10, max_iter=300, tol=1e-04, random_state=0, n_jobs=-1))
     ])
 
     text_clstz.fit(D)
@@ -71,6 +69,13 @@ def main():
     print("[i] сохраняем результат...")
 
     save2db(data, clusters)
+
+
+
+if __name__ == '__main__':
+    sys.exit( main() )
+
+
 
 
 

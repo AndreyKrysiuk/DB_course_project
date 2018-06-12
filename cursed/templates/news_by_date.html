@@ -13,17 +13,10 @@
 </head>
 <body>
 
-<h3>Статистика появления новостей в кластере по дням (за месяц):</h3>
-    {% if div2 %}
-            <div>
-                {{ div2|safe }}
-            </div>
-        {% endif %}
-
 
 {% for news in news_list %}
     <a href={{ news.link }}>
-        {{ news.title }} : {{ news.views }}
+        {{ news.title }} : {{ news.views }} // {{ news.published }}
     </a>
     <br>
 {%  endfor %}

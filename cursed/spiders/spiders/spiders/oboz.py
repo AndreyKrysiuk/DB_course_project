@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import scrapy
-from cursed import NewsModel
+from cursed.cursed import NewsModel
 
 from dateutil import parser
 
@@ -25,12 +25,12 @@ class ObozSpider(scrapy.Spider):
         archive_day = response.meta.get("archive_day")
         archive_month = response.meta.get("archive_month")
         if archive_day is None or archive_month is None:
-            archive_day = 1
+            archive_day = 11
             archive_month = 5
         elif archive_day == 31:
             archive_day = 1
             archive_month += 1
-        elif archive_day == 5 and archive_month == 6:
+        elif archive_day == 11 and archive_month == 6:
             return
 
         if archive_day < 10:

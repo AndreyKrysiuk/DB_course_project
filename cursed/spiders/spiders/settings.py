@@ -11,8 +11,7 @@
 
 import mongoengine
 
-mongo_path = "mongodb://admin:avemaria1@ds147450.mlab.com:47450/curse"
-mongoengine.connect(host=mongo_path)
+mongoengine.connect(host='localhost', port=27088)
 
 BOT_NAME = 'spiders'
 
